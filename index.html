@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuzlan's Epic AI Quest - 8-Bit Resume</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF00FF;
+            --secondary: #00FFFF;
+            --accent: #FFFF00;
+            --dark-bg: #1A0033;
+            --light-bg: #330066;
+            --text: #FFFF00;
+            --text-light: #00FFFF;
+            --grid: rgba(255, 0, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: var(--dark-bg);
+            background-image: 
+                linear-gradient(0deg, transparent 24%, var(--grid) 25%, var(--grid) 26%, transparent 27%, transparent 74%, var(--grid) 75%, var(--grid) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, var(--grid) 25%, var(--grid) 26%, transparent 27%, transparent 74%, var(--grid) 75%, var(--grid) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            background-color: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.4;
+            overflow-x: hidden;
+            animation: scanlines 0.15s linear infinite;
+        }
+
+        @keyframes scanlines {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 2px; }
+        }
+
+        .pixel-border {
+            border: 3px solid var(--text);
+            box-shadow: 
+                inset -2px -2px 0 #000,
+                inset 2px 2px 0 #666,
+                2px 2px 0 #000,
+                4px 4px 0 #000;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            color: #000;
+            padding: 40px 30px;
+            margin-bottom: 30px;
+            position: relative;
+            text-align: center;
+            animation: headerPulse 1s infinite;
+            border: 4px solid var(--text);
+        }
+
+        @keyframes headerPulse {
+            0%, 100% { box-shadow: 0 0 10px var(--primary), inset 0 0 10px rgba(255,0,255,0.3); }
+            50% { box-shadow: 0 0 20px var(--primary), inset 0 0 20px rgba(255,0,255,0.5); }
+        }
+
+        .name {
+            font-size: 2.5em;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 0 #000, 6px 6px 0 rgba(0,0,0,0.5);
+            animation: nameGlow 2s infinite;
+        }
+
+        @keyframes nameGlow {
+            0%, 100% { color: #000; }
+            50% { color: #FFD700; }
+        }
+
+        .tagline {
+            font-size: 0.8em;
+            color: #000;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            font-size: 0.6em;
+        }
+
+        .contact-item {
+            background: var(--light-bg);
+            padding: 5px 10px;
+            border: 2px solid #000;
+            color: var(--text);
+        }
+
+        /* SECTIONS */
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 4px solid var(--secondary);
+            background: rgba(51, 0, 102, 0.8);
+            position: relative;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border: 2px solid #000;
+            box-shadow: 25px 0 0 var(--accent), 50px 0 0 var(--accent);
+        }
+
+        .section-title {
+            font-size: 1.2em;
+            color: var(--accent);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed var(--secondary);
+            letter-spacing: 1px;
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--light-bg);
+            border: 3px solid var(--primary);
+            padding: 15px;
+            margin-bottom: 15px;
+            position: relative;
+            color: var(--text-light);
+        }
+
+        .card::before {
+            content: '▶';
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            color: var(--accent);
+            font-size: 1em;
+            animation: cardBlink 1s infinite;
+        }
+
+        @keyframes cardBlink {
+            0%, 49%, 100% { opacity: 1; }
+            50%, 99% { opacity: 0; }
+        }
+
+        .card-title {
+            font-size: 0.9em;
+            color: var(--accent);
+            margin-bottom: 5px;
+            margin-left: 20px;
+        }
+
+        .card-meta {
+            font-size: 0.7em;
+            color: var(--secondary);
+            margin-bottom: 8px;
+            margin-left: 20px;
+        }
+
+        .card-description {
+            font-size: 0.65em;
+            line-height: 1.3;
+            margin-left: 20px;
+            color: var(--text-light);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* GRID LAYOUT */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .grid-card {
+            background: var(--light-bg);
+            border: 3px solid var(--primary);
+            padding: 12px;
+            text-align: center;
+            position: relative;
+        }
+
+        .grid-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 2px,
+                rgba(255, 0, 255, 0.1) 2px,
+                rgba(255, 0, 255, 0.1) 4px
+            );
+            pointer-events: none;
+        }
+
+        .grid-icon {
+            font-size: 2em;
+            margin-bottom: 8px;
+        }
+
+        .grid-title {
+            font-size: 0.7em;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+
+        .grid-text {
+            font-size: 0.6em;
+            color: var(--text-light);
+            line-height: 1.2;
+        }
+
+        /* ACHIEVEMENT PIXELS */
+        .achievement-bar {
+            background: #000;
+            border: 2px solid var(--secondary);
+            padding: 10px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .bar-label {
+            font-size: 0.65em;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+
+        .bar-fill {
+            height: 15px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            border: 1px solid var(--text);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                transparent 2px,
+                rgba(0, 0, 0, 0.1) 2px,
+                rgba(0, 0, 0, 0.1) 4px
+            );
+            animation: barScroll 2s linear infinite;
+        }
+
+        @keyframes barScroll {
+            0% { background-position: 0; }
+            100% { background-position: 10px; }
+        }
+
+        /* LEVEL UP SECTION */
+        .level-up {
+            background: var(--primary);
+            color: #000;
+            padding: 20px;
+            text-align: center;
+            margin: 30px 0;
+            border: 4px solid var(--text);
+            font-size: 1em;
+            animation: levelPulse 0.5s infinite;
+        }
+
+        @keyframes levelPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--primary);
+            color: #000;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+            border: 4px solid var(--text);
+            font-size: 0.7em;
+        }
+
+        .footer-text {
+            margin-bottom: 10px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .name {
+                font-size: 1.5em;
+            }
+
+            .tagline {
+                font-size: 0.6em;
+            }
+
+            .contact-info {
+                font-size: 0.5em;
+                gap: 8px;
+            }
+
+            .section-title {
+                font-size: 0.9em;
+            }
+
+            .card-title {
+                font-size: 0.75em;
+            }
+
+            .card-description {
+                font-size: 0.55em;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* PRINT */
+        @media print {
+            body {
+                background: #fff;
+                color: #000;
+            }
+
+            .header {
+                background: #fff;
+                border: 2px solid #000;
+            }
+
+            .section, .card, .grid-card {
+                background: #fff;
+                border: 1px solid #000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="header">
+        <div class="name">FUZLAN'S QUEST</div>
+        <div class="tagline">AI ENGINEER LEVEL 99 | HEALTH-TECH BUILDER</div>
+        <div class="contact-info">
+            <div class="contact-item">📧 fuzlan2019@gmail.com</div>
+            <div class="contact-item">📱 +91 8919273494</div>
+            <div class="contact-item">📍 BENGALURU_CITY</div>
+            <div class="contact-item">🔗 LINKEDIN.COM/IN/SYEDFUZLAN73</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- MISSION -->
+        <div class="section">
+            <div class="section-title">>>> MISSION_STATEMENT <<<</div>
+            <div class="card">
+                <div class="card-description">
+                    "USING AI TO SOLVE PROBLEMS THAT IMPACT EVERYDAY PEOPLE: MAKING KNOWLEDGE ACCESSIBLE, HEALTH PREVENTIVE, AND TECHNOLOGY PERSONAL."
+                </div>
+            </div>
+        </div>
+
+        <!-- PROFESSIONAL SUMMARY -->
+        <div class="section">
+            <div class="section-title">>>> PLAYER_STATS <<<</div>
+            <div class="achievement-bar">
+                <div class="bar-label">GENAI EXPERIENCE</div>
+                <div class="bar-fill" style="width: 95%;"></div>
+            </div>
+            <div class="achievement-bar">
+                <div class="bar-label">COMPUTER VISION MASTERY</div>
+                <div class="bar-fill" style="width: 90%;"></div>
+            </div>
+            <div class="achievement-bar">
+                <div class="bar-label">PRODUCT STRATEGY</div>
+                <div class="bar-fill" style="width: 85%;"></div>
+            </div>
+            <div class="achievement-bar">
+                <div class="bar-label">LEADERSHIP POWER</div>
+                <div class="bar-fill" style="width: 88%;"></div>
+            </div>
+        </div>
+
+        <!-- ACHIEVEMENTS -->
+        <div class="section">
+            <div class="section-title">>>> BOSS_DEFEATS [ACHIEVEMENTS] <<<</div>
+            <div class="grid">
+                <div class="grid-card">
+                    <div class="grid-icon">🥈</div>
+                    <div class="grid-title">IIT_MADRAS_QUEST</div>
+                    <div class="grid-text">2ND PLACE / 6000+ PLAYERS / FINAL_BOSS_DEFEATED</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-icon">👥</div>
+                    <div class="grid-title">TECH_CODE_CLAN</div>
+                    <div class="grid-text">0→150+ MEMBERS / 50+ TRAINED / GUILD_LEADER</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-icon">💬</div>
+                    <div class="grid-title">POLICYPRO_CHATBOT</div>
+                    <div class="grid-text">85% ACCURACY / 1000+ PDFs / QUEST_COMPLETE</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-icon">📚</div>
+                    <div class="grid-title">AI_FUSION_PLATFORM</div>
+                    <div class="grid-text">90%+ ACCURACY / 1000+ USERS / LIVE_SERVER</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-icon">🌱</div>
+                    <div class="grid-title">PLANT_ID_CNN</div>
+                    <div class="grid-text">94% ACCURACY / 10K+ IMAGES / TRAINED</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-icon">⚡</div>
+                    <div class="grid-title">YOLOV5_DETECTOR</div>
+                    <div class="grid-text">30+ FPS / REAL_TIME / PRODUCTION_READY</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TECH SKILLS -->
+        <div class="section">
+            <div class="section-title">>>> SKILL_TREE <<<</div>
+            <div class="grid">
+                <div class="grid-card">
+                    <div class="grid-title">🤖 GENAI_SPELLS</div>
+                    <div class="grid-text">GPT-4 | LLAMA | CLAUDE | LANGCHAIN | RAG | FAISS</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-title">👁️ VISION_ARTS</div>
+                    <div class="grid-text">PYTORCH | TENSORFLOW | CNN | YOLO | OPENCV</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-title">🔧 CRAFTING</div>
+                    <div class="grid-text">PYTHON | SQL | JS | STREAMLIT | FASTAPI | AWS</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-title">⚙️ AUTOMATION</div>
+                    <div class="grid-text">BLUE_PRISM_RPA | PIPELINES | ETL | WEB_SCRAPE</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXPERIENCE -->
+        <div class="section">
+            <div class="section-title">>>> EXPERIENCE_LOG <<<</div>
+            
+            <div class="card">
+                <div class="card-title">CO-FOUNDER_SYAN_HEALTH-TECH</div>
+                <div class="card-meta">2024-PRESENT | ACTIVE_QUEST</div>
+                <div class="card-description">
+                    BUILDING AI_AGENT FOR PREVENTIVE WELLNESS. <span class="highlight">PHASE: MVP_PLANNING</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">FREELANCE_AI_ANNOTATOR</div>
+                <div class="card-meta">NOV-DEC 2025 | OPENTRAIN_AI_PLATFORM</div>
+                <div class="card-description">
+                    VOLLEYBALL_VIDEO_ANNOTATION. SPORTS_ACTION_RECOGNITION EXPERT. <span class="highlight">10/10_PERFORMANCE</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">HEAD_MENTOR_TECH_CODE_CLAN</div>
+                <div class="card-meta">2021-2025 | GUILD_LEADER</div>
+                <div class="card-description">
+                    150+ MEMBERS | 50+ MENTORED | 12+ COMPETITIONS | <span class="highlight">200% GROWTH</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">MARKETING_INTERN_SHAASTRA_IIT</div>
+                <div class="card-meta">OCT 2024 - JAN 2025 | COMPLETE</div>
+                <div class="card-description">
+                    50K+ REACH | <span class="highlight">40% VISIBILITY↑ | 25% PARTICIPATION↑</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">BLUE_PRISM_RPA_DEVELOPER</div>
+                <div class="card-meta">SEP-NOV 2023 | CERTIFIED</div>
+                <div class="card-description">
+                    8+ PROCESSES | <span class="highlight">45% EFFICIENCY | 120HRS/WK SAVED</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- LEVEL UP MESSAGE -->
+        <div class="level-up">
+            ★★★ LEVEL UP! ★★★<br>
+            SYAN_HEALTH-TECH UNLOCKED<br>
+            NEW_ABILITY: PREVENTIVE_WELLNESS_AI
+        </div>
+
+        <!-- CERTIFICATIONS -->
+        <div class="section">
+            <div class="section-title">>>> ACHIEVEMENTS_UNLOCKED <<<</div>
+            <div class="grid">
+                <div class="grid-card">
+                    <div class="grid-icon">🔵</div>
+                    <div class="grid-title">BLUE_PRISM</div>
+                    <div class="grid-text">RPA_DEVELOPER | NOV_2023</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-icon">☁️</div>
+                    <div class="grid-title">ORACLE_CLOUD</div>
+                    <div class="grid-text">AI_FOUNDATIONS | SEP_2025</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-icon">🤖</div>
+                    <div class="grid-title">GENAI_MASTER</div>
+                    <div class="grid-text">SWAYAM | 93%_SCORE</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-icon">⛓️</div>
+                    <div class="grid-title">HASHGRAPH</div>
+                    <div class="grid-text">DEVELOPER | JUL_2025</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-icon">💪</div>
+                    <div class="grid-title">NUTRITION_PRO</div>
+                    <div class="grid-text">NPTEL | IIT_MADRAS</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-icon">🎯</div>
+                    <div class="grid-title">AI_AGENT</div>
+                    <div class="grid-text">ARCHITECT | AIRTRIBE</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-icon">☁️</div>
+                    <div class="grid-title">GOOGLE_CLOUD</div>
+                    <div class="grid-text">FOUNDATIONS | NOV_2024</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-icon">🏫</div>
+                    <div class="grid-title">IIT_MADRAS</div>
+                    <div class="grid-text">AI_STARTUP | JUN_2025</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VALUES -->
+        <div class="section">
+            <div class="section-title">>>> CHARACTER_TRAITS <<<</div>
+            <div class="grid">
+                <div class="grid-card">
+                    <div class="grid-title">🙏 FAITH_DRIVEN</div>
+                    <div class="grid-text">PURPOSE > PROFIT</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-title">🎯 IMPACT_FOCUSED</div>
+                    <div class="grid-text">SOLVE_REAL_PROBLEMS</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-title">🌍 GROUND_LEVEL</div>
+                    <div class="grid-text">BUILD_FOR_EVERYONE</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-title">⚡ VISIONARY</div>
+                    <div class="grid-text">THINK_FUTURE_EXECUTE_NOW</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-title">📚 LEARNER</div>
+                    <div class="grid-text">ALWAYS_EVOLVING</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-title">🔓 OPEN_BUILDER</div>
+                    <div class="grid-text">SHARE_COLLABORATE</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EDUCATION -->
+        <div class="section">
+            <div class="section-title">>>> EDUCATION_PROFILE <<<</div>
+            <div class="card">
+                <div class="card-title">B.TECH_COMPUTER_SCIENCE</div>
+                <div class="card-meta">SRI_VENKATESA_PERUMAL_COLLEGE | 2021-2025 | CGPA: 8.8/10</div>
+                <div class="card-description">
+                    ML | DL | AI | CV | NLP | BIG_DATA | FOUNDED_TECH_CODE_CLAN | 1000+ PARTICIPANTS_FESTIVAL
+                </div>
+            </div>
+        </div>
+
+        <!-- LANGUAGES -->
+        <div class="section">
+            <div class="section-title">>>> LANGUAGE_PACK <<<</div>
+            <div class="grid">
+                <div class="grid-card">
+                    <div class="grid-title">🇬🇧 ENGLISH</div>
+                    <div class="grid-text">PROFESSIONAL_FLUENCY ★★★★★</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-title">🇮🇳 TELUGU</div>
+                    <div class="grid-text">NATIVE_SPEAKER ★★★★★</div>
+                </div>
+                <div class="grid-card">
+                    <div class="grid-title">🇮🇳 HINDI</div>
+                    <div class="grid-text">CONVERSATIONAL ★★★☆☆</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-text">★ GAME_OVER_SCREEN ★</div>
+        <div class="footer-text">FUZLAN_THE_AI_ENGINEER | BENGALURU_BASE | 2025</div>
+        <div class="footer-text">📧 FUZLAN2019@GMAIL.COM | 🔗 LINKEDIN.COM/IN/SYEDFUZLAN73</div>
+        <div class="footer-text" style="margin-top: 10px; font-style: italic;">
+            "THE BEST TECHNOLOGY IS INVISIBLE—IT SOLVES PROBLEMS SO WELL THAT USERS FORGET IT'S THERE."
+        </div>
+        <div class="footer-text" style="margin-top: 10px;">★ INSERT_COIN_TO_CONTINUE ★</div>
+    </footer>
+</body>
+</html>
